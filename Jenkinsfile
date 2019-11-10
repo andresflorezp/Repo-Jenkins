@@ -13,7 +13,7 @@ pipeline {
         stage('Apply') {
             steps {
                 dir('/tmp/TerraformLab'){
-                    sh 'az login -u "andres.florez-p@mail.escuelaing.edu.co" -p "970813Leo.$"' 
+                    sh 'az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET -t $ARM_TENANT_ID' 
                     sh 'terraform plan -out=tfplan -input=false'
                     sh 'terraform apply -input=false tfplan'
                 }
