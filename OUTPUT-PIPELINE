@@ -1,0 +1,388 @@
+Started by user Andres Giovanne Florez Perez
+Obtained Jenkinsfile from git https://github.com/andresflorezp/Repo-Jenkins
+Running in Durability level: MAX_SURVIVABILITY
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/terraform-2121990
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+No credentials specified
+ > git rev-parse --is-inside-work-tree # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/andresflorezp/Repo-Jenkins # timeout=10
+Fetching upstream changes from https://github.com/andresflorezp/Repo-Jenkins
+ > git --version # timeout=10
+ > git fetch --tags --force --progress -- https://github.com/andresflorezp/Repo-Jenkins +refs/heads/*:refs/remotes/origin/*
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+ > git rev-parse refs/remotes/origin/origin/master^{commit} # timeout=10
+Checking out Revision 051869512c12096ef92f6258564fad7e04659236 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 051869512c12096ef92f6258564fad7e04659236
+Commit message: "Update Jenkinsfile"
+ > git rev-list --no-walk 6ed9135c25c30cf2c571d02ad996ecf0fb7aeba6 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Init)
+[Pipeline] dir
+Running in /tmp/TerraformLab
+[Pipeline] {
+[Pipeline] sh
++ terraform init
+
+[0m[1mInitializing the backend...[0m
+
+[0m[1mInitializing provider plugins...[0m
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.azurerm: version = "~> 1.36"
+* provider.random: version = "~> 2.2"
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Apply)
+[Pipeline] dir
+Running in /tmp/TerraformLab
+[Pipeline] {
+[Pipeline] sh
++ az login -u andres.florez-p@mail.escuelaing.edu.co -p 970813Leo.$
+[
+  {
+    "cloudName": "AzureCloud",
+    "id": "84b89334-3df9-4d5d-85e3-05b4eb9e69c8",
+    "isDefault": true,
+    "name": "nueva-subscripcion",
+    "state": "Enabled",
+    "tenantId": "50640584-2a40-4216-a84b-9b3ee0f3f6cf",
+    "user": {
+      "name": "andres.florez-p@mail.escuelaing.edu.co",
+      "type": "user"
+    }
+  }
+]
+[Pipeline] sh
++ terraform plan -out=tfplan -input=false
+[0m[1mRefreshing Terraform state in-memory prior to plan...[0m
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+[0m
+
+------------------------------------------------------------------------
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  [32m+[0m create
+[0m
+Terraform will perform the following actions:
+
+[1m  # azurerm_lb.vmss[0m will be created[0m[0m
+[0m[32m  +[0m [0mresource "azurerm_lb" "vmss" {
+      [32m+[0m [0m[1m[0mid[0m[0m                   = (known after apply)
+      [32m+[0m [0m[1m[0mlocation[0m[0m             = "eastus"
+      [32m+[0m [0m[1m[0mname[0m[0m                 = "vmss-lb"
+      [32m+[0m [0m[1m[0mprivate_ip_address[0m[0m   = (known after apply)
+      [32m+[0m [0m[1m[0mprivate_ip_addresses[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mresource_group_name[0m[0m  = "ConuTerraformLab"
+      [32m+[0m [0m[1m[0msku[0m[0m                  = "Basic"
+      [32m+[0m [0m[1m[0mtags[0m[0m                 = {
+          [32m+[0m [0m"environment" = "codelab"
+        }
+
+      [32m+[0m [0mfrontend_ip_configuration {
+          [32m+[0m [0m[1m[0minbound_nat_rules[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mload_balancer_rules[0m[0m           = (known after apply)
+          [32m+[0m [0m[1m[0mname[0m[0m                          = "PublicIPAddress"
+          [32m+[0m [0m[1m[0moutbound_rules[0m[0m                = (known after apply)
+          [32m+[0m [0m[1m[0mprivate_ip_address[0m[0m            = (known after apply)
+          [32m+[0m [0m[1m[0mprivate_ip_address_allocation[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mpublic_ip_address_id[0m[0m          = (known after apply)
+          [32m+[0m [0m[1m[0mpublic_ip_prefix_id[0m[0m           = (known after apply)
+          [32m+[0m [0m[1m[0msubnet_id[0m[0m                     = (known after apply)
+        }
+    }
+
+[1m  # azurerm_lb_backend_address_pool.bpepool[0m will be created[0m[0m
+[0m[32m  +[0m [0mresource "azurerm_lb_backend_address_pool" "bpepool" {
+      [32m+[0m [0m[1m[0mbackend_ip_configurations[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m                        = (known after apply)
+      [32m+[0m [0m[1m[0mload_balancing_rules[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mloadbalancer_id[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m                      = "BackEndAddressPool"
+      [32m+[0m [0m[1m[0mresource_group_name[0m[0m       = "ConuTerraformLab"
+    }
+
+[1m  # azurerm_lb_probe.vmss[0m will be created[0m[0m
+[0m[32m  +[0m [0mresource "azurerm_lb_probe" "vmss" {
+      [32m+[0m [0m[1m[0mid[0m[0m                  = (known after apply)
+      [32m+[0m [0m[1m[0minterval_in_seconds[0m[0m = 15
+      [32m+[0m [0m[1m[0mload_balancer_rules[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mloadbalancer_id[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m                = "ssh-running-probe"
+      [32m+[0m [0m[1m[0mnumber_of_probes[0m[0m    = 2
+      [32m+[0m [0m[1m[0mport[0m[0m                = 80
+      [32m+[0m [0m[1m[0mprotocol[0m[0m            = (known after apply)
+      [32m+[0m [0m[1m[0mresource_group_name[0m[0m = "ConuTerraformLab"
+    }
+
+[1m  # azurerm_lb_rule.lbnatrule[0m will be created[0m[0m
+[0m[32m  +[0m [0mresource "azurerm_lb_rule" "lbnatrule" {
+      [32m+[0m [0m[1m[0mbackend_address_pool_id[0m[0m        = (known after apply)
+      [32m+[0m [0m[1m[0mbackend_port[0m[0m                   = 80
+      [32m+[0m [0m[1m[0mdisable_outbound_snat[0m[0m          = false
+      [32m+[0m [0m[1m[0menable_floating_ip[0m[0m             = false
+      [32m+[0m [0m[1m[0mfrontend_ip_configuration_id[0m[0m   = (known after apply)
+      [32m+[0m [0m[1m[0mfrontend_ip_configuration_name[0m[0m = "PublicIPAddress"
+      [32m+[0m [0m[1m[0mfrontend_port[0m[0m                  = 80
+      [32m+[0m [0m[1m[0mid[0m[0m                             = (known after apply)
+      [32m+[0m [0m[1m[0midle_timeout_in_minutes[0m[0m        = (known after apply)
+      [32m+[0m [0m[1m[0mload_distribution[0m[0m              = (known after apply)
+      [32m+[0m [0m[1m[0mloadbalancer_id[0m[0m                = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m                           = "http"
+      [32m+[0m [0m[1m[0mprobe_id[0m[0m                       = (known after apply)
+      [32m+[0m [0m[1m[0mprotocol[0m[0m                       = "tcp"
+      [32m+[0m [0m[1m[0mresource_group_name[0m[0m            = "ConuTerraformLab"
+    }
+
+[1m  # azurerm_public_ip.vmss[0m will be created[0m[0m
+[0m[32m  +[0m [0mresource "azurerm_public_ip" "vmss" {
+      [32m+[0m [0m[1m[0mallocation_method[0m[0m            = "Static"
+      [32m+[0m [0m[1m[0mdomain_name_label[0m[0m            = (known after apply)
+      [32m+[0m [0m[1m[0mfqdn[0m[0m                         = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m                           = (known after apply)
+      [32m+[0m [0m[1m[0midle_timeout_in_minutes[0m[0m      = 4
+      [32m+[0m [0m[1m[0mip_address[0m[0m                   = (known after apply)
+      [32m+[0m [0m[1m[0mip_version[0m[0m                   = "IPv4"
+      [32m+[0m [0m[1m[0mlocation[0m[0m                     = "eastus"
+      [32m+[0m [0m[1m[0mname[0m[0m                         = "vmss-public-ip"
+      [32m+[0m [0m[1m[0mpublic_ip_address_allocation[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mresource_group_name[0m[0m          = "ConuTerraformLab"
+      [32m+[0m [0m[1m[0msku[0m[0m                          = "Basic"
+      [32m+[0m [0m[1m[0mtags[0m[0m                         = {
+          [32m+[0m [0m"environment" = "codelab"
+        }
+    }
+
+[1m  # azurerm_resource_group.vmss[0m will be created[0m[0m
+[0m[32m  +[0m [0mresource "azurerm_resource_group" "vmss" {
+      [32m+[0m [0m[1m[0mid[0m[0m       = (known after apply)
+      [32m+[0m [0m[1m[0mlocation[0m[0m = "eastus"
+      [32m+[0m [0m[1m[0mname[0m[0m     = "ConuTerraformLab"
+      [32m+[0m [0m[1m[0mtags[0m[0m     = {
+          [32m+[0m [0m"environment" = "codelab"
+        }
+    }
+
+[1m  # azurerm_subnet.vmss[0m will be created[0m[0m
+[0m[32m  +[0m [0mresource "azurerm_subnet" "vmss" {
+      [32m+[0m [0m[1m[0maddress_prefix[0m[0m       = "10.0.2.0/24"
+      [32m+[0m [0m[1m[0mid[0m[0m                   = (known after apply)
+      [32m+[0m [0m[1m[0mip_configurations[0m[0m    = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m                 = "vmss-subnet"
+      [32m+[0m [0m[1m[0mresource_group_name[0m[0m  = "ConuTerraformLab"
+      [32m+[0m [0m[1m[0mvirtual_network_name[0m[0m = "vmss-vnet"
+    }
+
+[1m  # azurerm_virtual_machine_scale_set.vmss[0m will be created[0m[0m
+[0m[32m  +[0m [0mresource "azurerm_virtual_machine_scale_set" "vmss" {
+      [32m+[0m [0m[1m[0mautomatic_os_upgrade[0m[0m   = false
+      [32m+[0m [0m[1m[0mid[0m[0m                     = (known after apply)
+      [32m+[0m [0m[1m[0mlicense_type[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mlocation[0m[0m               = "eastus"
+      [32m+[0m [0m[1m[0mname[0m[0m                   = "vmscaleset"
+      [32m+[0m [0m[1m[0moverprovision[0m[0m          = true
+      [32m+[0m [0m[1m[0mresource_group_name[0m[0m    = "ConuTerraformLab"
+      [32m+[0m [0m[1m[0msingle_placement_group[0m[0m = true
+      [32m+[0m [0m[1m[0mtags[0m[0m                   = {
+          [32m+[0m [0m"environment" = "codelab"
+        }
+      [32m+[0m [0m[1m[0mupgrade_policy_mode[0m[0m    = "Manual"
+
+      [32m+[0m [0midentity {
+          [32m+[0m [0m[1m[0midentity_ids[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mprincipal_id[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mtype[0m[0m         = (known after apply)
+        }
+
+      [32m+[0m [0mnetwork_profile {
+          [32m+[0m [0m[1m[0mip_forwarding[0m[0m = false
+          [32m+[0m [0m[1m[0mname[0m[0m          = "terraformnetworkprofile"
+          [32m+[0m [0m[1m[0mprimary[0m[0m       = true
+
+          [32m+[0m [0mip_configuration {
+              [32m+[0m [0m[1m[0mapplication_gateway_backend_address_pool_ids[0m[0m = []
+              [32m+[0m [0m[1m[0mapplication_security_group_ids[0m[0m               = []
+              [32m+[0m [0m[1m[0mload_balancer_backend_address_pool_ids[0m[0m       = (known after apply)
+              [32m+[0m [0m[1m[0mload_balancer_inbound_nat_rules_ids[0m[0m          = (known after apply)
+              [32m+[0m [0m[1m[0mname[0m[0m                                         = "IPConfiguration"
+              [32m+[0m [0m[1m[0mprimary[0m[0m                                      = true
+              [32m+[0m [0m[1m[0msubnet_id[0m[0m                                    = (known after apply)
+            }
+        }
+
+      [32m+[0m [0mos_profile {
+          [32m+[0m [0m[1m[0madmin_password[0m[0m       = (sensitive value)
+          [32m+[0m [0m[1m[0madmin_username[0m[0m       = "azureuser"
+          [32m+[0m [0m[1m[0mcomputer_name_prefix[0m[0m = "vmlab"
+          [32m+[0m [0m[1m[0mcustom_data[0m[0m          = "92478471bcff14567a8d12a196efda0453b45224"
+        }
+
+      [32m+[0m [0mos_profile_linux_config {
+          [32m+[0m [0m[1m[0mdisable_password_authentication[0m[0m = false
+        }
+
+      [32m+[0m [0msku {
+          [32m+[0m [0m[1m[0mcapacity[0m[0m = 2
+          [32m+[0m [0m[1m[0mname[0m[0m     = "Standard_DS1_v2"
+          [32m+[0m [0m[1m[0mtier[0m[0m     = "Standard"
+        }
+
+      [32m+[0m [0mstorage_profile_data_disk {
+          [32m+[0m [0m[1m[0mcaching[0m[0m           = "ReadWrite"
+          [32m+[0m [0m[1m[0mcreate_option[0m[0m     = "Empty"
+          [32m+[0m [0m[1m[0mdisk_size_gb[0m[0m      = 10
+          [32m+[0m [0m[1m[0mlun[0m[0m               = 0
+          [32m+[0m [0m[1m[0mmanaged_disk_type[0m[0m = (known after apply)
+        }
+
+      [32m+[0m [0mstorage_profile_image_reference {
+          [32m+[0m [0m[1m[0moffer[0m[0m     = "UbuntuServer"
+          [32m+[0m [0m[1m[0mpublisher[0m[0m = "Canonical"
+          [32m+[0m [0m[1m[0msku[0m[0m       = "16.04-LTS"
+          [32m+[0m [0m[1m[0mversion[0m[0m   = "latest"
+        }
+
+      [32m+[0m [0mstorage_profile_os_disk {
+          [32m+[0m [0m[1m[0mcaching[0m[0m           = "ReadWrite"
+          [32m+[0m [0m[1m[0mcreate_option[0m[0m     = "FromImage"
+          [32m+[0m [0m[1m[0mmanaged_disk_type[0m[0m = "Standard_LRS"
+          [32m+[0m [0m[1m[0mvhd_containers[0m[0m    = []
+        }
+    }
+
+[1m  # azurerm_virtual_network.vmss[0m will be created[0m[0m
+[0m[32m  +[0m [0mresource "azurerm_virtual_network" "vmss" {
+      [32m+[0m [0m[1m[0maddress_space[0m[0m       = [
+          [32m+[0m [0m"10.0.0.0/16",
+        ]
+      [32m+[0m [0m[1m[0mid[0m[0m                  = (known after apply)
+      [32m+[0m [0m[1m[0mlocation[0m[0m            = "eastus"
+      [32m+[0m [0m[1m[0mname[0m[0m                = "vmss-vnet"
+      [32m+[0m [0m[1m[0mresource_group_name[0m[0m = "ConuTerraformLab"
+      [32m+[0m [0m[1m[0mtags[0m[0m                = {
+          [32m+[0m [0m"environment" = "codelab"
+        }
+
+      [32m+[0m [0msubnet {
+          [32m+[0m [0m[1m[0maddress_prefix[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mname[0m[0m           = (known after apply)
+          [32m+[0m [0m[1m[0msecurity_group[0m[0m = (known after apply)
+        }
+    }
+
+[1m  # random_string.fqdn[0m will be created[0m[0m
+[0m[32m  +[0m [0mresource "random_string" "fqdn" {
+      [32m+[0m [0m[1m[0mid[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mlength[0m[0m      = 6
+      [32m+[0m [0m[1m[0mlower[0m[0m       = true
+      [32m+[0m [0m[1m[0mmin_lower[0m[0m   = 0
+      [32m+[0m [0m[1m[0mmin_numeric[0m[0m = 0
+      [32m+[0m [0m[1m[0mmin_special[0m[0m = 0
+      [32m+[0m [0m[1m[0mmin_upper[0m[0m   = 0
+      [32m+[0m [0m[1m[0mnumber[0m[0m      = false
+      [32m+[0m [0m[1m[0mresult[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mspecial[0m[0m     = false
+      [32m+[0m [0m[1m[0mupper[0m[0m       = false
+    }
+
+[0m[1mPlan:[0m 10 to add, 0 to change, 0 to destroy.[0m
+
+------------------------------------------------------------------------
+
+This plan was saved to: tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "tfplan"
+
+[Pipeline] sh
++ terraform apply -input=false tfplan
+[0m[1mrandom_string.fqdn: Creating...[0m[0m
+[0m[1mrandom_string.fqdn: Creation complete after 0s [id=hxtfzh][0m[0m
+[0m[1mazurerm_resource_group.vmss: Creating...[0m[0m
+[0m[1mazurerm_resource_group.vmss: Creation complete after 1s [id=/subscriptions/84b89334-3df9-4d5d-85e3-05b4eb9e69c8/resourceGroups/ConuTerraformLab][0m[0m
+[0m[1mazurerm_virtual_network.vmss: Creating...[0m[0m
+[0m[1mazurerm_public_ip.vmss: Creating...[0m[0m
+[0m[1mazurerm_public_ip.vmss: Creation complete after 5s [id=/subscriptions/84b89334-3df9-4d5d-85e3-05b4eb9e69c8/resourceGroups/ConuTerraformLab/providers/Microsoft.Network/publicIPAddresses/vmss-public-ip][0m[0m
+[0m[1mazurerm_lb.vmss: Creating...[0m[0m
+[0m[1mazurerm_lb.vmss: Creation complete after 0s [id=/subscriptions/84b89334-3df9-4d5d-85e3-05b4eb9e69c8/resourceGroups/ConuTerraformLab/providers/Microsoft.Network/loadBalancers/vmss-lb][0m[0m
+[0m[1mazurerm_lb_backend_address_pool.bpepool: Creating...[0m[0m
+[0m[1mazurerm_lb_probe.vmss: Creating...[0m[0m
+[0m[1mazurerm_lb_probe.vmss: Creation complete after 0s [id=/subscriptions/84b89334-3df9-4d5d-85e3-05b4eb9e69c8/resourceGroups/ConuTerraformLab/providers/Microsoft.Network/loadBalancers/vmss-lb/probes/ssh-running-probe][0m[0m
+[0m[1mazurerm_lb_backend_address_pool.bpepool: Creation complete after 1s [id=/subscriptions/84b89334-3df9-4d5d-85e3-05b4eb9e69c8/resourceGroups/ConuTerraformLab/providers/Microsoft.Network/loadBalancers/vmss-lb/backendAddressPools/BackEndAddressPool][0m[0m
+[0m[1mazurerm_lb_rule.lbnatrule: Creating...[0m[0m
+[0m[1mazurerm_lb_rule.lbnatrule: Creation complete after 0s [id=/subscriptions/84b89334-3df9-4d5d-85e3-05b4eb9e69c8/resourceGroups/ConuTerraformLab/providers/Microsoft.Network/loadBalancers/vmss-lb/loadBalancingRules/http][0m[0m
+[0m[1mazurerm_virtual_network.vmss: Still creating... [10s elapsed][0m[0m
+[0m[1mazurerm_virtual_network.vmss: Creation complete after 10s [id=/subscriptions/84b89334-3df9-4d5d-85e3-05b4eb9e69c8/resourceGroups/ConuTerraformLab/providers/Microsoft.Network/virtualNetworks/vmss-vnet][0m[0m
+[0m[1mazurerm_subnet.vmss: Creating...[0m[0m
+[0m[1mazurerm_subnet.vmss: Still creating... [10s elapsed][0m[0m
+[0m[1mazurerm_subnet.vmss: Creation complete after 11s [id=/subscriptions/84b89334-3df9-4d5d-85e3-05b4eb9e69c8/resourceGroups/ConuTerraformLab/providers/Microsoft.Network/virtualNetworks/vmss-vnet/subnets/vmss-subnet][0m[0m
+[0m[1mazurerm_virtual_machine_scale_set.vmss: Creating...[0m[0m
+[0m[1mazurerm_virtual_machine_scale_set.vmss: Still creating... [10s elapsed][0m[0m
+[0m[1mazurerm_virtual_machine_scale_set.vmss: Still creating... [20s elapsed][0m[0m
+[0m[1mazurerm_virtual_machine_scale_set.vmss: Still creating... [30s elapsed][0m[0m
+[0m[1mazurerm_virtual_machine_scale_set.vmss: Still creating... [40s elapsed][0m[0m
+[0m[1mazurerm_virtual_machine_scale_set.vmss: Still creating... [50s elapsed][0m[0m
+[0m[1mazurerm_virtual_machine_scale_set.vmss: Still creating... [1m0s elapsed][0m[0m
+[0m[1mazurerm_virtual_machine_scale_set.vmss: Still creating... [1m10s elapsed][0m[0m
+[0m[1mazurerm_virtual_machine_scale_set.vmss: Still creating... [1m20s elapsed][0m[0m
+[0m[1mazurerm_virtual_machine_scale_set.vmss: Still creating... [1m30s elapsed][0m[0m
+[0m[1mazurerm_virtual_machine_scale_set.vmss: Still creating... [1m40s elapsed][0m[0m
+[0m[1mazurerm_virtual_machine_scale_set.vmss: Still creating... [1m50s elapsed][0m[0m
+[0m[1mazurerm_virtual_machine_scale_set.vmss: Still creating... [2m0s elapsed][0m[0m
+[0m[1mazurerm_virtual_machine_scale_set.vmss: Creation complete after 2m2s [id=/subscriptions/84b89334-3df9-4d5d-85e3-05b4eb9e69c8/resourceGroups/ConuTerraformLab/providers/Microsoft.Compute/virtualMachineScaleSets/vmscaleset][0m[0m
+[0m[1m[32m
+Apply complete! Resources: 10 added, 0 changed, 0 destroyed.[0m
+[0m
+The state of your infrastructure has been saved to the path
+below. This state is required to modify and destroy your
+infrastructure, so keep it safe. To inspect the complete state
+use the `terraform show` command.
+
+State path: terraform.tfstate[0m
+[0m[1m[32m
+Outputs:
+
+vmss_public_ip = hxtfzh.eastus.cloudapp.azure.com[0m
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
